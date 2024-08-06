@@ -3,17 +3,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import stats
 from sklearn.datasets import load_iris
-
 iris = load_iris()
 df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
 df['species'] = iris.target_names[iris.target]
-
-
 attribute = 'sepal length (cm)'
-
 print("First five rows:")
 print(df.head())
-
 plt.figure(figsize=(12, 6))
 plt.subplot(1, 2, 1)
 sns.histplot(df[attribute], kde=False, bins=20)
@@ -23,7 +18,6 @@ sns.kdeplot(df[attribute], fill=True)
 plt.title(f'KDE of {attribute}')
 plt.tight_layout()
 plt.show()
-
 skewness = stats.skew(df[attribute])
 kurtosis = stats.kurtosis(df[attribute])
 print(f"Skewness: {skewness:.4f}")
