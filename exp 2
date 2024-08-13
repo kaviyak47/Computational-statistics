@@ -1,0 +1,18 @@
+import pandas as pd
+from plotly.express import data
+
+px = data.iris()
+
+df = pd.DataFrame(px)
+
+print("First 10 records:")
+print(df.head(10))
+
+print("\nNumber of Rows and Columns:", df.shape)
+
+print("\nColumn names:", df.columns.tolist())
+
+numerical_cols = df.select_dtypes(include=['number']).columns
+for col in numerical_cols:
+    print(f"{col.capitalize()} - Mean = {df[col].mean():.10f}")
+
