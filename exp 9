@@ -1,0 +1,16 @@
+import matplotlib.pyplot as plt
+import numpy as np
+product = ['computer', 'monitor', 'laptop', 'printer', 'tablet']
+quantity = [320, 450, 300, 120, 280]
+plt.figure(figsize=(10, 6))
+plt.bar(product, quantity, color ='maroon')
+plt.xlabel("Product")
+plt.ylabel("Quantity")
+plt.title("Bar Plot")
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.hbar(product, quantity, color ='maroon')
+plt.xlabel("Quantity")
+plt.ylabel("Product")
+plt.title("H-Plot")
+plt.show()
