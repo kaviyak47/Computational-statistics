@@ -1,0 +1,31 @@
+import pandas as pd
+import plotly.express as px
+import numpy as np
+from scipy import stats
+import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+px_data = px.data.iris()
+df = pd.DataFrame(px_data)
+print("Total Number of Records.")
+print(df.shape)
+numerical_attributes = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
+for attribute in numerical_attributes:
+    print(f"\nTotal Number of Records for {attribute}:")
+    print(df[attribute].value_counts())
+for attribute in numerical_attributes:
+    mean, std = np.mean(df[attribute]), np.std(df[attribute])
+    x = np.linspace(mean - 3*std, mean + 3*std, 100)
+    y = stats.norm.pdf(x, mean, std)
+    fig = go.Figure(data=[go.Scatter(x=x, y=y)])
+    fig.update_layout(title=f"Normal Distribution of {attribute}", xaxis_title="Value", yaxis_title="Probability Density")
+    fig.show()
+print("\nAttribute Name\tMean\tStandard Deviation")
+for attribute in numerical_attributes:
+    mean, std = np.mean(df[attribute]), np.std(df[attribute])
+    print(f"{attribute.capitalize()}\t{mean:.7f}\t{std:.5f}")
+for attribute in numerical_attributes:
+    plt.hist(df[attribute], bins=20)
+    plt.title(f"Histogram of {attribute}")
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+    plt.show()
