@@ -1,0 +1,25 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import minimize
+x = np.linspace(-10, 30, 100)
+e = np.random.normal(0, 1, 100)  # error term
+y = 10 + 4*x + e
+def likelihood(params):
+    beta0, beta1, sigma = params
+    y_pred = beta0 + beta1*x
+    residual = y - y_pred
+    likelihood = -np.sum(np.log(np.exp(-residual**2 / (2*sigma**2)) / (sigma*np.sqrt(2*np.pi))))
+    return -likelihood  # note the negative sign for minimization
+init_params = [0, 0, 1]
+res = minimize(likelihood, init_params, method="SLSQP")
+print(res)
+print("Estimated parameters:")
+print("beta0:", res.x[0])
+print("beta1:", res.x[1])
+print("sigma:", res.x[2])
+plt.scatter(x, y, label="Data")
+plt.plot(x, res.x[0] + res.x[1]*x, label="Estimated Regression Line", color="red")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.show()
