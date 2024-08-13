@@ -1,0 +1,20 @@
+import pandas as pd
+import plotly.express as px
+import numpy as np
+import plotly.graph_objects as go
+px_data = px.data.iris()
+df = pd.DataFrame(px_data)
+print("Statistical Description of Iris Data Set:")
+print(df.describe())
+fig = go.Figure(data=[go.Box(y=df['sepal_length'], boxpoints='all', jitter=0.3, pointpos=-1.8)])
+fig.update_layout(title="Box Plot of Sepal Length", xaxis_title="", yaxis_title="Sepal Length")
+fig.show()
+print("\nRelevant Statistical Data for Sepal Length:")
+print("Mean:", np.mean(df['sepal_length']))
+print("Median:", np.median(df['sepal_length']))
+print("Standard Deviation:", np.std(df['sepal_length']))
+print("Q1:", np.percentile(df['sepal_length'], 25))
+print("Q3:", np.percentile(df['sepal_length'], 75))
+fig = px.scatter(df, x="sepal_width", y="sepal_length")
+fig.update_layout(title="Dependency Curve of Sepal Length", xaxis_title="Sepal Width", yaxis_title="Sepal Length")
+fig.show()
