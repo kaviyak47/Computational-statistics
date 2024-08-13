@@ -1,0 +1,26 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_wine
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.preprocessing import StandardScaler
+wine = load_wine()
+n_classes = len(np.unique(wine.target))
+n_features = wine.data.shape[1]
+print("Number of classes and Features:")
+print("Number of classes:", n_classes)
+print("Number of features:", n_features)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(wine.data)
+lda = LinearDiscriminantAnalysis(n_components=2)
+X_lda = lda.fit_transform(X_scaled, wine.target)
+variance_ratio = lda.explained_variance_ratio_
+print("\nVariance Ratio:")
+print(vtariance_ratio)
+plt.figure(figsize=(8, 6))
+for label in np.unique(wine.target):
+    plt.scatter(X_lda[wine.target == label, 0], X_lda[wine.target == label, 1], label=label)
+plt.xlabel("LD1")
+plt.ylabel("LD2")
+plt.title("LDA Scatter Plot")
+plt.legend()
+plt.show()
